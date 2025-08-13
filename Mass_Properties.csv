@@ -1,0 +1,38 @@
+,Current Model ,Target Value,,,,,,,,,,,,,,,,,,,,,,,
+Mass(kg),44.34821,131.9,,,,,,,,,,,,,,,,,,,,,,,
+X (m),0.29943,0.19569,,,,,,,,,,,,,,,,,,,,,,,
+Y (m),0.0015,0.001,,,,,,,,,,Mass properties of Assem1,,,,,,,,,,Mass properties of sample,,,
+Z (m),0.13301,0.07494,,,,,,,,,,     Configuration: Default,,,,,,,,,,     Configuration: Default,,,
+"Ixx (kg,m^)",7.747985966,12.52723749,,,,,,,,,,     Coordinate system: Coordinate System2,,,,,,,,,,     Coordinate system: Coordinate System2,,,
+"Iyy (kg,m^)",2.474892289,3.987983472,,,,,,,,,,,,,,,,,,,,,,,
+"Izz (kg,m^)",8.4480844,14.20758137,,,,,,,,,,Mass = 131846.39 grams,,,,,,,,,,The center of mass and the moments of inertia are output in the coordinate system of Assem1,,,
+,,,,,,,,,,,,,,,,,,,,,,Density = 0.00 grams per cubic millimeter,,,
+,,,,,,,,,,,,Volume = 27892913.91 cubic millimeters,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,Mass = 44348.21 grams,,,
+,,,,,,,,,,,,Surface area = 5764112.22  square millimeters,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,Volume = 16425263.10 cubic millimeters,,,
+,,,,,,,,,,,,Center of mass: ( millimeters ),,,,,,,,,,,,,
+,,,,,,,,,,,195.69,,X = 195.69,,,,,,,,,Surface area = 4335843.10  square millimeters,,,
+,,,,,,,,,,,0.00,,Y = 0.00,,,,,,,,,,,,
+,,,,,,,,,,,74.94,,Z = 74.94,,,,,,,,,Center of mass: ( millimeters ),,,
+,,,,,,,,,,,,,,,,,,,,,299.43,,X = 299.43,,
+,,,,,,,,,,,,Principal axes of inertia and principal moments of inertia: ( grams *  square millimeters ),,,,,,,,,0.00,,Y = 0.00,,
+,,,,,,,,,,,,Taken at the center of mass.,,,,,,,,,133.01,,Z = 133.01,,
+,,,,,,,,,,,,," Ix = ( 0.00,  1.00,  0.00)   ",Px = 3987983472.18,,,,,,,,,,,
+,,,,,,,,,,,,," Iy = (-0.97,  0.00, -0.24)   ",Py = 12418636913.57,,,,,,,,Principal axes of inertia and principal moments of inertia: ( grams *  square millimeters ),,,
+,,,,,,,,,,,,," Iz = (-0.24,  0.00,  0.97)   ",Pz = 14316181942.67,,,,,,,,Taken at the center of mass.,,,
+,,,,,,,,,,,,,,,,,,,,,,," Ix = ( 0.00,  1.00,  0.00)   ",Px = 2474892288.62,
+,,,,,,,,,,,,Moments of inertia: ( grams *  square millimeters ),,,,,,,,,,," Iy = (-1.00,  0.00, -0.05)   ",Py = 7745917768.70,
+,,,,,,,,,,,,Taken at the center of mass and aligned with the output coordinate system.,,,,,,,,,,," Iz = (-0.05,  0.00,  1.00)   ",Pz = 8450152597.42,
+,,,,,,,,,,,12.52723749,,Lxx = 12527237487.27,Lxy = -42014.82,Lxz = 440772497.54,,,,,,,,,,
+,,,,,,,,,,,3.987983472,,Lyx = -42014.82,Lyy = 3987983472.41,Lyz = -14183.78,,,,,,,Moments of inertia: ( grams *  square millimeters ),,,
+,,,,,,,,,,,14.20758137,,Lzx = 440772497.54,Lzy = -14183.78,Lzz = 14207581368.74,,,,,,,Taken at the center of mass and aligned with the output coordinate system.,,,
+,,,,,,,,,,,,,,,,,,,,,7.747985966,,Lxx = 7747985966.19,Lxy = -23492.53,Lxz = 38107995.65
+,,,,,,,,,,,,Moments of inertia: ( grams *  square millimeters ),,,,,,,,,2.474892289,,Lyx = -23492.53,Lyy = 2474892288.73,Lyz = -3809.91
+,,,,,,,,,,,,Taken at the output coordinate system.,,,,,,,,,8.4480844,,Lzx = 38107995.65,Lzy = -3809.91,Lzz = 8448084399.83
+,,,,,,,,,,,,,Ixx = 13267622153.28,Ixy = -76950.31,Ixz = 2374169036.10,,,,,,,,,,
+,,,,,,,,,,,,,Iyx = -76950.31,Iyy = 9777125018.40,Iyz = -27562.16,,,,,,,Moments of inertia: ( grams *  square millimeters ),,,
+,,,,,,,,,,,,,Izx = 2374169036.10,Izy = -27562.16,Izz = 19256338249.20,,,,,,,Taken at the output coordinate system.,,,
+,,,,,,,,,,,,,,,,,,,,,,,Ixx = 8532635634.56,Ixy = -76950.31,Ixz = 1804463554.70
+,,,,,,,,,,,,,,,,,,,,,,,Iyx = -76950.31,Iyy = 7235854047.73,Iyz = -27556.91
+,,,,,,,,,,,,,,,,,,,,,,,Izx = 1804463554.70,Izy = -27556.91,Izz = 12424396491.89
