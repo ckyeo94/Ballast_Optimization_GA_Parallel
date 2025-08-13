@@ -43,47 +43,51 @@ def calculate_properties_from_config(ballast_config, initial_props, ballast_prop
 
 def calculate_fitness(ballast_config, initial_props, ballast_props, ballast_H, unique_xy_z_base_df, target_props_list, weights, stacking_weight):
     """
-    This function calculates the fitness of a single 'chromosome' (a ballast configuration).
-    It's designed to be called by multiple processes in parallel.
+    Calculates the fitness of a ballast configuration using a normalized, squared-error penalty.
+    This approach provides a smoother fitness landscape than the previous percentage-based penalty.
     """
     props = calculate_properties_from_config(ballast_config, initial_props, ballast_props, ballast_H, unique_xy_z_base_df)
     
     mass_property_score = 0.0
     prop_keys = ['Mass', 'X', 'Y', 'Z', 'Ixx', 'Iyy', 'Izz']
-    # The mass property is now handled by a fixed ballast count, so we start the property index from 1
+
+    # Define absolute physical tolerances for each property.
+    # These provide a more stable basis for error calculation than percentages.
+    tolerances = {
+        'X': 0.05,  # 5 cm tolerance for CG X
+        'Y': 0.05,  # 5 cm tolerance for CG Y
+        'Z': 0.05,  # 5 cm tolerance for CG Z
+        'Ixx': max(abs(target_props_list[4] * 0.03), 1e-3), # 3% of target MOI, or a small floor value
+        'Iyy': max(abs(target_props_list[5] * 0.03), 1e-3), # 3% of target MOI, or a small floor value
+        'Izz': max(abs(target_props_list[6] * 0.03), 1e-3)  # 3% of target MOI, or a small floor value
+    }
+
+    # Iterate through optimizable properties (skip 'Mass')
     for i, key in enumerate(prop_keys[1:]):
-        target_val = target_props_list[i+1] # Offset by 1 to skip Mass
-        current_val = props[i+1]           # Offset by 1 to skip Mass
+        prop_index = i + 1
+        current_val = props[prop_index]
+        target_val = target_props_list[prop_index]
         
-        # Calculate percentage error for all properties
-        if abs(target_val) < 1e-9: # Handle true zero targets to avoid division by zero
-            percentage_error = abs(current_val - target_val) # Use absolute error for true zero targets
-        else:
-            percentage_error = abs((current_val - target_val) / target_val)
+        deviation = current_val - target_val
+        tolerance = tolerances[key]
 
-        # Define tolerance for CG and MOI
-        if key in ['X', 'Y', 'Z']:
-            tolerance = 0.01 # 1% for CG
-        elif key in ['Ixx', 'Iyy', 'Izz']:
-            tolerance = 0.03 # 3% for MOI
-        else:
-            tolerance = 1.0 # Default for other properties (e.g., Mass, which is handled separately)
-
-        # Penalize if error exceeds tolerance
-        if percentage_error > tolerance:
-            # Use a squared penalty that increases significantly beyond tolerance
-            penalty = (percentage_error - tolerance)**2
-        else:
-            # Reward for being within tolerance (or slightly penalize for not being exactly zero)
-            penalty = percentage_error**2 # Still penalize for non-zero error within tolerance
-
-        mass_property_score += weights.get(key, 1.0) * penalty
+        # Calculate a normalized, squared error.
+        # This value is 1.0 when the deviation exactly equals the tolerance,
+        # creating a smooth, dimensionless penalty.
+        normalized_error = (deviation / (tolerance + 1e-9))**2
         
-    # The stacking penalty encourages fewer, larger stacks
+        # Apply the user-defined weight for this property
+        mass_property_score += weights.get(key, 1.0) * normalized_error
+
+    # The stacking penalty encourages consolidating ballasts into fewer, larger stacks
     stacking_penalty = stacking_weight * len(ballast_config)
     
+    # The total score is the sum of weighted property errors and the stacking penalty
     score = mass_property_score + stacking_penalty
-    return 1.0 / (score + 1e-9) # Return fitness (higher is better)
+
+    # Fitness is the inverse of the score; higher is better.
+    # A small epsilon prevents division by zero.
+    return 1.0 / (score + 1e-9)
 
 # --- GENETIC ALGORITHM OPERATORS (IMPROVED) ---
 
