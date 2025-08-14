@@ -51,3 +51,35 @@ The script generates two main output files:
 
 1.  **`optimized_ballast_placements.csv`**: A CSV file listing the `x`, `y`, and `z` coordinates for each ballast placed by the algorithm.
 2.  **`ballast_placement_3d.png`**: A 3D scatter plot showing the optimized ballast locations (in blue) against all available locations (in gray). This provides a quick visual verification of the result.
+
+## Advanced Usage and Recommendations
+
+### Verifying Final Results
+
+A utility script, `calculate_error.py`, is provided to manually calculate the final mass properties and deviation report from an existing output file (`optimized_ballast_placements.csv`). This is useful for verifying results without re-running the full, time-consuming optimization.
+
+To use it, simply run:
+```bash
+python calculate_error.py
+```
+The script will read the existing configuration and output files and print a deviation report to the console.
+
+### Tuning the Algorithm
+
+The performance of the genetic algorithm is highly dependent on the parameters set in `config.ini`. For different models or targets, you may need to tune these values:
+
+-   **`[OPTIMIZATION]`**:
+    -   `population_size`: A larger population can explore more of the solution space but will increase computation time.
+    -   `num_generations`: More generations allow the algorithm more time to converge on a solution. If the fitness value is still improving when the run finishes, you may need to increase this.
+    -   `mutation_rate`: This controls the amount of randomness introduced in each generation. A higher rate can help escape local optima but may prevent fine-tuning of a good solution. The script uses an adaptive mutation rate that decreases over time.
+
+-   **`[WEIGHTS]`**:
+    -   The weights (`x_w`, `y_w`, etc.) are crucial for prioritizing which targets are most important. If the algorithm is struggling to meet a specific target (e.g., `Iyy`), increasing the corresponding weight (`iyy_w`) will penalize deviations in that property more heavily, forcing the algorithm to focus on improving it.
+
+### Recommended Upgrades
+
+The current implementation is robust, but here are some recommendations for future upgrades:
+
+1.  **Configurable Tolerances**: The fitness function uses hard-coded tolerance values (e.g., 5cm for CG, 3% for MOI). These could be moved into the `config.ini` file to allow for easier tuning without modifying the source code.
+2.  **Advanced Crossover/Mutation**: Explore more sophisticated genetic operators. For example, a two-point crossover or different mutation strategies (e.g., Gaussian mutation) might improve performance for certain problems.
+3.  **Algorithm Selection**: The script could be extended to support other optimization algorithms, such as Particle Swarm Optimization (PSO) or Simulated Annealing, allowing the user to choose the best method for their specific use case.
